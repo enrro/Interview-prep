@@ -48,18 +48,17 @@ class Solution {
         int n = days.length;
         int[] dp = new int[n+1];
         
+        // start the dp table with the highest possible number. in this case the amount of days.
         for(int i = 0; i < n; ++i){
             dp[i] = 365*costs[0];
         }
         
         for(int i = n-1; i>= 0; i--){
             int d7 = i, d30 = i;
+            // keep track of the last n'days.
             while(d7 < n && days[d7] < days[i] + 7)++d7;
             while(d30 < n && days[d30] < days[i] + 30)++d30;
-            // System.out.println("d30: " + d30 + " d7: "+ d7 + " i: "+ i );
-            // System.out.println(costs[0]+dp[i+1]);
-            // System.out.println(costs[1]+dp[d7]);
-            // System.out.println(costs[2]+dp[d30]);
+            //compare the cost of the current day agains the one of the day before, 7 days ago and 30 days ago and pick the smallest to update the dp table
             dp[i] = Math.min(costs[0]+dp[i+1],Math.min(costs[1]+dp[d7],costs[2]+dp[d30]));
         }
         return dp[0];
