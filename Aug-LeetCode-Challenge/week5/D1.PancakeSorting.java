@@ -34,7 +34,9 @@ Constraints:
 
 1 <= A.length <= 100
 1 <= A[i] <= A.length
-All integers in A are unique (i.e. A is a permutation of the integers from 1 to A.length).*/
+All integers in A are unique (i.e. A is a permutation of the integers from 1 to A.length).
+https://leetcode.com/explore/challenge/card/august-leetcoding-challenge/553/week-5-august-29th-august-31st/3441/
+*/
 
 class Solution {
     public List<Integer> pancakeSort(int[] A) {
