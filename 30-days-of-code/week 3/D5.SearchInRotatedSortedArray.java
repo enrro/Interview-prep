@@ -111,6 +111,9 @@ class Solution {
         }
         // we do the terniary operator in case the target
         // is in the first position and the array is size 0;
+        // note. this is not necesary when r == nums.length
+        // we cant do that this time because we access that 
+        // position
         return nums[l] == target ? l : -1;
     }
 }
