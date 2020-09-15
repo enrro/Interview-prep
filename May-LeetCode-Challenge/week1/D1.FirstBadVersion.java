@@ -42,7 +42,7 @@ public class Solution extends VersionControl {
 
 
 //iterative solution.
-//left +rigth / 2 could overflow so we do it this way
+//left + rigth / 2 could overflow so we do it this way
 //we can return r or l. they are at the same position
 public class Solution extends VersionControl {
     public int firstBadVersion(int n) {
@@ -66,7 +66,22 @@ public class Solution extends VersionControl {
 //cleaner
 /* The isBadVersion API is defined in the parent class VersionControl.
       boolean isBadVersion(int version); */
-
+// this binary search aproach is moving the left pointer to the right until it collides
+// making left moving slowly to the right until it reaches it. giving us like this the
+// first element that was a false. 
+// the trick is in the plus 1 to the left.
+/*example
+n            = 100
+first defect = 4
+Your stdout
+left: 1 right: 50
+left: 1 right: 25
+left: 1 right: 13
+left: 1 right: 7
+left: 1 right: 4
+left: 3 right: 4
+left: 4 right: 4
+*/
 public class Solution extends VersionControl {
     public int firstBadVersion(int n) {
         int l = 1;
