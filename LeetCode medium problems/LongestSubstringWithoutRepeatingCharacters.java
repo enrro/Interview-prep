@@ -19,6 +19,8 @@ Explanation: The answer is "wke", with the length of 3.
              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
 */
 
+// aproach. slide the window until you find a repeated character and then contract left side
+// until you no longer have a repeating character
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         // sliding window
@@ -41,3 +43,4 @@ class Solution {
         return max;
     }
 }
+

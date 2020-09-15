@@ -20,6 +20,7 @@ Output: false
 Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible
 */
 //https://leetcode.com/explore/other/card/30-day-leetcoding-challenge/531/week-4/3310/
+//https://leetcode.com/explore/interview/card/google/59/array-and-strings/3053/
 class Solution {
     public boolean canJump(int[] nums) {
         if(nums == null ) return false;
