@@ -35,11 +35,11 @@ Note that the starting and ending square can be anywhere in the grid.
  
 
 Note:
-
 1 <= grid.length * grid[0].length <= 20
 https://leetcode.com/explore/featured/card/september-leetcoding-challenge/556/week-3-september-15th-september-21st/3466/
 */
 
+// grad deep first search solution
 class Solution {
     public int uniquePathsIII(int[][] grid) {
         int zero = 0, sx = 0, sy = 0;
