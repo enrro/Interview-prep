@@ -11,6 +11,22 @@ Input: "Hello World"
 Output: 5
 https://leetcode.com/explore/featured/card/september-leetcoding-challenge/556/week-3-september-15th-september-21st/3461/
 */
+
+class Solution {
+    public int lengthOfLastWord(String s) {
+        int tail = s.length()-1;
+        int length = 0;
+        while(tail >= 0 && s.charAt(tail) == ' ') tail--;
+        while(tail >= 0 && s.charAt(tail) != ' ') {
+            length++;
+            tail--;
+        }
+        
+        return length;
+    }
+}
+
+// this solution is too noisy
 class Solution {
     public int lengthOfLastWord(String s) {
         int n = s.length();

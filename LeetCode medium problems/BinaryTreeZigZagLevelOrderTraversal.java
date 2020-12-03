@@ -33,44 +33,35 @@ return its zigzag level order traversal as:
  */
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>> slist = new ArrayList<List<Integer>>();
-        if(root == null) return slist;
-        TreeNode currentNode;
-        Stack<TreeNode> s1 = new Stack<>();
-        Stack<TreeNode> s2 = new Stack<>();
-        List<Integer> clist;
-        s1.push(root);
-        
-        while(!s1.isEmpty()){
-            clist = new ArrayList<Integer>();
-            while(!s1.isEmpty()){
-                currentNode = s1.pop();
-                clist.add(currentNode.val);
-                if(currentNode.left != null){
-                    s2.push(currentNode.left);
-                }
-                if(currentNode.right != null){
-                    s2.push(currentNode.right);
-                }
+        Deque<TreeNode> q1 = new LinkedList();
+        Deque<TreeNode> q2 = new LinkedList();
+        List<List<Integer>>  out = new LinkedList();
+        if(root == null) return out;
+        q1.addFirst(root);
+        while(!q1.isEmpty()){
+            List<Integer> list = new LinkedList();
+            
+            while(!q1.isEmpty()){
+                TreeNode n = q1.removeFirst();
+                list.add(n.val);
+                if(n.left != null)  q2.addFirst(n.left);
+                if(n.right != null) q2.addFirst(n.right);
             }
-            slist.add(clist);
-            clist = new ArrayList<Integer>();
-
-            while(!s2.isEmpty()){
-                currentNode = s2.pop();
-                clist.add(currentNode.val);
-
-                if(currentNode.right != null){
-                    s1.push(currentNode.right);
-                }
-                if(currentNode.left != null){
-                    s1.push(currentNode.left);
-                }
+            
+            out.add(list);
+            if(q2.isEmpty()) break;
+            list = new LinkedList();
+            while(!q2.isEmpty()){
+                TreeNode n = q2.removeFirst();
+                list.add(n.val);
+                if(n.right != null)q1.addFirst(n.right);
+                if(n.left != null) q1.addFirst(n.left);
             }
-            if(clist.size() > 0){
-                slist.add(clist);
-            }
+            
+            out.add(list);
         }
-        return slist;
+        
+        
+        return out;
     }
 }

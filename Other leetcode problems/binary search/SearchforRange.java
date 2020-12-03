@@ -1,4 +1,5 @@
 /*
+Also known as Find First and Last Position of Element in Sorted Array
 Given an array of integers nums sorted in ascending order, find the starting and ending position of a given target value.
 
 Your algorithm's runtime complexity must be in the order of O(log n).
@@ -33,6 +34,7 @@ class Solution {
         
         while(l < r){
             mid = l + (r - l) / 2;
+        // left is going to iterate until it finds the value that is target
             if(nums[mid] >= target){
                 r = mid;
             }else{
@@ -46,6 +48,7 @@ class Solution {
         
         while(l < r){
             mid = l + (r - l) / 2;
+        // left is going to iterate until it finds the value that is larget than target
             if(nums[mid] > target){
                 r = mid;
             }else{

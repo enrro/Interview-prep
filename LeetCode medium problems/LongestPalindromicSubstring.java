@@ -27,7 +27,7 @@ class Solution {
             if(maxlen > (end - start)){
                 start = i - ((maxlen - 1) / 2);
                 end = i + ((maxlen) / 2);
-            }
+            }   
         }
         
         return s.substring(start,end+1);

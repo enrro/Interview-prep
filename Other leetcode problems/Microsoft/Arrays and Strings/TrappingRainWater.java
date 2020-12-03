@@ -26,14 +26,21 @@ class Solution {
             tailMax = Math.max(tailMax, height[tail]);
             headMax = Math.max(headMax, height[head]);
             
+            // since we know that there is a barrier to the right then we can add the value that is in this location 
+            // the value in this location is the difference between the prev. max and here.
             if(tailMax < headMax){
+                System.out.println("tailMax: " + tailMax + " tail " + height[tail]);
                 max += tailMax - height[tail];
                 tail++;
-            }else{
+            }
+            // otherwise we know there is a barrier to the left, and we do again the difference betwee current max and
+            // current (headMax - height[head])
+            else{
+                System.out.println("headMax: " + headMax + " head " + height[head]);
                 max += headMax - height[head];
                 head--;
             }
-            
+            System.out.println("tailMax: " + tailMax + " headMax: " + headMax + " max: " + max);
         }
         
         return max;

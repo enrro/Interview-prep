@@ -26,40 +26,53 @@ exention -> exection (replace 'n' with 'c')
 exection -> execution (insert 'u')
 */
 
+
+/*https://www.youtube.com/watch?v=b6AGUjqIPsA this video is a good reference */
 class Solution {
     public int minDistance(String word1, String word2) {
         // create a matrix of integer ecuals to the lenght of the string + 1 for the base case of "" empty string
-        int[][] matrix = new int[word2.length()+1][word1.length()+1];
+        // this matrix represents the characters in both words. the rows are the chars at word1 and cols at word 2
+        int n = word1.length(), m = word2.length();
+        int[][] matrix = new int[m+1][n+1];
         
-        // adding the base case for empty string
-        for(int row=0;row < word2.length()+1;row++){
-            matrix[row][0] = row;
+        // populate empty string cases for "row" word
+        for(int i = 0; i < n+1; i++){
+            matrix[0][i] = i;
         }
-        
-        for(int col = 0; col < word1.length()+1;col++){
-            matrix[0][col] = col;
+        // populate empty string cases for "col" word
+        for(int i = 0; i < m+1; i++){
+            matrix[i][0] = i;
         }
-        
-        // print2D(matrix);
-        // System.out.print("\n");
-        for(int row = 1; row < word2.length()+1;row++){
-            for(int col = 1; col < word1.length()+1;col++){
-                if(word1.charAt(col-1) == word2.charAt(row-1)){
-                    //if the characters are the same it means that no change needs to be made
-                    matrix[row][col] = matrix[row-1][col-1];
+        // check if both characters are the same. 
+        // if they are then we pick the corner side of the matrix, this represents the less efort to make the arrays similar doing nothing
+        // if they are not then we pick the minimum value en every other direction and add + 1
+        for(int i = 1; i < m+1; i++){
+            for(int j = 1; j < n+1; j++){
+                if(word1.charAt(j-1) == word2.charAt(i-1)){
+                    matrix[i][j] = matrix[i-1][j-1];
                 }else{
-                    // otherwise we should find the min value between the
-                    // value right above current
-                    // value to the left of current
-                    // diagonal value of current
-                    matrix[row][col] = Math.min(Math.min(matrix[row-1][col],matrix[row][col-1]),
-                                            matrix[row-1][col-1]) + 1;
+                    matrix[i][j] = Math.min(matrix[i-1][j-1], Math.min(matrix[i-1][j],matrix[i][j-1]))+1;
                 }
             }
         }
         // print2D(matrix);
-        return matrix[word2.length()][word1.length()];
+        return matrix[m][n];
     }
+    
+    public static void print2D(int mat[][]) 
+    { 
+        // Loop through all rows 
+        for (int i = 0; i < mat.length; i++){ 
+  
+            // Loop through all elements of current row 
+            for (int j = 0; j < mat[i].length; j++){ 
+                System.out.print(mat[i][j] + " ");
+            }
+            System.out.print("\n");
+        }
+        System.out.println("");
+    } 
+}
     
     public static void print2D(int mat[][]) 
     { 

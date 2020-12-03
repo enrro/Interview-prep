@@ -22,12 +22,14 @@ https://leetcode.com/explore/other/card/30-day-leetcoding-challenge/532/week-5/3
 //         return Math.max(rootDiameter, Math.max(leftDiameter,rightDiameter));
 class Solution {
     int maxSum;
-    public int maxPathSum(TreeNode root) {
+public int maxPathSum(TreeNode root) {
         maxSum = Integer.MIN_VALUE;
         maxOfTree(root);
         return maxSum;
     }
     
+    // maxSum is the sum of the path with the highest value
+    // Math.max(left,right) + root.val on the other hand is for the upper layer int maxLeft and maxRight. because we cannot choose both of them
     public int maxOfTree(TreeNode root){
         if(root == null) return 0;
         int maxLeft = Integer.max(0,maxOfTree(root.left));

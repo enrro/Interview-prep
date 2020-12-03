@@ -31,17 +31,19 @@ https://leetcode.com/explore/interview/card/google/59/array-and-strings/339/
 
 class Solution {
     public int[] plusOne(int[] digits) {
-        
-        for(int i = digits.length-1; i >= 0; i--){
+        int n = digits.length;
+        for(int i = n-1; i >= 0; i--){
+            // you are done you found the missing digit
             if(digits[i] < 9){
-                digits[i]++;
+                digits[i] = digits[i]+1;
                 return digits;
             }
+            // lets keep looking for it
             digits[i] = 0;
         }
-        
-        int[] res = new int[digits.length+1];
-        res[0] = 1;
-        return res;
+        // if we are here is because the number was really a lot of 9s.
+        int[] otherDigits = new int[n+1];
+        otherDigits[0] = 1;
+        return otherDigits;
     }
 }
