@@ -12,28 +12,32 @@ Note: Please solve it without division and in O(n).
 Follow up:
 Could you solve it with constant space complexity? (The output array does not count as extra space for the purpose of space complexity analysis.)
 */
-
+/* approach.
+ The multiplication of every element to the right of a given element i, can be calculated by 
+ the multiplication of every element to the right of i multiplied by every element to the left of i.
+ */
 class Solution {
     public int[] productExceptSelf(int[] nums) {
-        int[] numRes = new int[nums.length];
-        int[] L = new int[nums.length];
-        int[] R = new int[nums.length];
+        int n = nums.length;
+        int[] L = new int[n];
+        int[] R = new int[n];
+        int[] res = new int[n];
         
         L[0] = 1;
-        for(int i = 1; i < nums.length; i++){
-           L[i] = L[i - 1] * nums[i - 1]; 
-        }
-        System.out.println(Arrays.toString(L));
         
-        R[nums.length-1] = 1;
-        for(int i = nums.length - 2; i >= 0; i--){
+        for(int i = 1;i < n; i++){
+            L[i] = L[i - 1] * nums[i - 1];
+        }
+        
+        R[n-1] = 1;
+        for(int i = n - 2; i >= 0; i--){
             R[i] = R[i + 1] * nums[i + 1];
         }
-        System.out.println(Arrays.toString(R));
-        for(int i = 0; i < nums.length; i++){
-            numRes[i] = L[i] * R[i];
+        
+        for(int i = 0; i < n; i++){
+            res[i] = L[i] * R[i];
         }
         
-        return numRes;
+        return res;
     }
 }
