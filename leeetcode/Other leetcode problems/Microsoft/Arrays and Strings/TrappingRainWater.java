@@ -20,29 +20,24 @@ So anything in the middle of leftMax bar and rightMax bar will not influence how
  */
 class Solution {
     public int trap(int[] height) {
-        int head = height.length-1, tail = 0, max = 0, headMax = 0, tailMax = 0;
+        int head = height.length - 1, tail = 0;
+        int headPeak = 0, tailPeak = 0;
+        int trappedWater = 0; 
         
         while(tail < head){
-            tailMax = Math.max(tailMax, height[tail]);
-            headMax = Math.max(headMax, height[head]);
+            tailPeak = Math.max(tailPeak, height[tail]);
+            headPeak = Math.max(headPeak, height[head]);
             
-            // since we know that there is a barrier to the right then we can add the value that is in this location 
-            // the value in this location is the difference between the prev. max and here.
-            if(tailMax < headMax){
-                System.out.println("tailMax: " + tailMax + " tail " + height[tail]);
-                max += tailMax - height[tail];
+            if(tailPeak < headPeak){
+                trappedWater += tailPeak - height[tail];
                 tail++;
             }
-            // otherwise we know there is a barrier to the left, and we do again the difference betwee current max and
-            // current (headMax - height[head])
             else{
-                System.out.println("headMax: " + headMax + " head " + height[head]);
-                max += headMax - height[head];
+                trappedWater += headPeak - height[head];
                 head--;
             }
-            System.out.println("tailMax: " + tailMax + " headMax: " + headMax + " max: " + max);
         }
         
-        return max;
+        return trappedWater;
     }
 }
