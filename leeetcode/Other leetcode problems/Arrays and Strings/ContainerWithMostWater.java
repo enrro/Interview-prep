@@ -36,20 +36,27 @@ a20 is at most height[a10] * (20-10). So there is a contradiction of assumption 
 https://leetcode.com/explore/interview/card/google/59/array-and-strings/3048/
  */
 
- class Solution {
-public int maxArea(int[] height) {
-    int left = 0, right = height.length - 1;
-	int maxArea = 0;
-
-	while (left < right) {
-		maxArea = Math.max(maxArea, Math.min(height[left], height[right]) * (right - left));
-        System.out.println(maxArea);
-		if (height[left] < height[right])
-			left++;
-		else
-			right--;
-	}
-
-	return maxArea;
-}
+class Solution {
+    /* approach.
+        we are calculating the largest rectangle between x1 and x2.
+        A rectangle area = base * height. the height is the smallest 
+        height we have between x1 and x2.
+        base is the distance between x1 and x2. 
+    */
+    public int maxArea(int[] height) {
+        int x1 = 0, x2 = height.length-1;
+        int max = 0;
+        
+        while(x1 < x2){
+            int b = x2 - x1;
+            int h = Math.min(height[x1], height[x2]);
+            max = Math.max(max, h * b);
+            if(height[x1] > height[x2]){
+                x2--;
+            }else{
+                x1++;
+            }
+        }
+        return max;
+    }
 }
