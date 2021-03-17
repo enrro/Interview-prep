@@ -12,18 +12,21 @@ Input: [[1,4],[4,5]]
 Output: [[1,5]]
 Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 NOTE: input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature.
+https://leetcode.com/explore/interview/card/amazon/79/sorting-and-searching/2993/
 */
 
 class Solution {
     public int[][] merge(int[][] intervals) {
         if(intervals.length <= 1) return intervals;
+        // sort every element by their first value
         Arrays.sort(intervals, (arr1, arr2) -> Integer.compare(arr1[0],arr2[0]));
         
+        // add the first value to a list
         List<int[]> output = new ArrayList<>();
         int[] currentInterval = intervals[0];
         output.add(currentInterval);
         
-        
+        // update the list acording to the content of the intervals 
         for(int[] interval : intervals){
             int currentBegin = currentInterval[0];
             int currentEnd = currentInterval[1];

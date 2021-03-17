@@ -101,8 +101,9 @@ class Solution {
         while(l < r){
             mid = l + (r - l) / 2;
             if(nums[mid] == target) return mid;
-            if(nums[l] <= nums[mid]){
-                if(target >= nums[l] && target < nums[mid]) r = mid;
+            // from left to mid is sorted
+            if(nums[mid] >= nums[l]){
+                // the value is within the range of l to mid. so adjust r
                 else l = mid + 1;
             }else{
                 if(target <= nums[r] && target > nums[mid]) l = mid + 1;
