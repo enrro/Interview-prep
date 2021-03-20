@@ -17,6 +17,11 @@ there are two possible conditions that can happend once you find which side is l
 Condition 1: there exists another bar with height h, as 2 < h < 5, then position 1 can fill water with 2 units, even though water will be blocked by the middle bar
 Condition 2: there exists another bar with height h, as 2 > h, then position 1 still can fill water with 2 units (in other words, if there does not exist any bars greater than 2, then water will fill out every position until reach the right most bar with height 5)
 So anything in the middle of leftMax bar and rightMax bar will not influence how much water can current position trap
+
+think of the water that can be retained 
+you can only retain as much water as the
+difference between the smallest of the two peaks 
+minus the height of the current position
  */
 class Solution {
     public int trap(int[] height) {

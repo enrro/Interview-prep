@@ -42,6 +42,10 @@ class Solution {
         count (first param) with each other. How does it compare one entry to another? It does so
         by giving Map.Entry.comparingByValue() as second param to Collections.max() call. After max
         returns it has the entry with max value. .getKey() is the string with max value.
+        \\W+ means non words
+            p.replaceAll("\\W+" , " ") means replace all non words with spaces
+            \s means whitespace(spaces tabs, line breaks)
+        the '+' means we match more than one of the pattern we have
         */
     }
 }
