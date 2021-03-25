@@ -35,25 +35,24 @@ https://leetcode.com/explore/challenge/card/august-leetcoding-challenge/551/week
 */
 
 class Solution {
-    public int[] numsSameConsecDiff(int N, int K) {
-        LinkedList<Integer> ll = new LinkedList<Integer>();
-        if(N == 1) ll.add(0);
+    public int[] numsSameConsecDiff(int n, int k) {
+        LinkedList<Integer> ll = new LinkedList();
         
-        for(int d = 1; d < 10; d++){
-            dfs(d,N-1,K,ll);
+        for(int i = 1; i < 10; i++){
+            dfs(i, n - 1, k, ll);
         }
-        
-        int[] array = ll.stream().mapToInt(i->i).toArray();
-        return array;
+        int[] arr = ll.stream().mapToInt(i -> i).toArray();
+        return arr;
     }
     
-    public void dfs(int num, int N, int K, LinkedList<Integer> ll){
-        if(N == 0){
+    public void dfs(int num, int n, int k, LinkedList<Integer> ll){
+        if(n == 0){
             ll.add(num);
             return;
         }
-        int lastDigit = num%10;
-        if(lastDigit >= K) dfs(num*10+lastDigit - K, N-1,K, ll );
-        if(K > 0 && lastDigit + K < 10)dfs(num*10+lastDigit + K, N-1,K, ll );
+        int lastDigit = num % 10;
+        int currentNum = num * 10 + lastDigit;
+        if(lastDigit >= k) dfs(currentNum - k, n - 1, k, ll);
+        if(k > 0 && lastDigit + k < 10) dfs(currentNum + k, n - 1, k, ll);
     }
 }
