@@ -47,3 +47,24 @@ class Solution {
         return otherDigits;
     }
 }
+
+// not so efficient but intuitive
+class Solution {
+    public int[] plusOne(int[] digits) {
+        int[] res = new int[digits.length];
+        int carry = 1;
+        for(int i = digits.length - 1; i >= 0; i--){
+            int digit = digits[i] + carry;
+            carry = digit / 10;
+            digit %= 10; 
+            res[i] = digit;
+        }
+        
+        if(carry == 1){
+            res = new int[res.length + 1];
+            res[0] = 1;
+        }
+        
+        return res;
+    }
+}

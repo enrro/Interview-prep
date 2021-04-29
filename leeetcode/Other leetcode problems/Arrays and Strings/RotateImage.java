@@ -78,7 +78,7 @@ class Solution {
     
 }
 
-// solution 2
+// solution 2 BEST
 // The idea was firstly transpose the matrix and then flip it symmetrically. For instance,
 
 // 1  2  3             
