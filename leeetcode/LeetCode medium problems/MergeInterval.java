@@ -20,7 +20,8 @@ class Solution {
         if(intervals.length <= 1) return intervals;
         // sort every element by their first value
         Arrays.sort(intervals, (arr1, arr2) -> Integer.compare(arr1[0],arr2[0]));
-        
+        //other sort
+        //Arrays.sort(intervals, (arr1, arr2) -> (arr1[0] - arr2[0]));
         // add the first value to a list
         List<int[]> output = new ArrayList<>();
         int[] currentInterval = intervals[0];
