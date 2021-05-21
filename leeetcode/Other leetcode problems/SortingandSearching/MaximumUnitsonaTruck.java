@@ -32,6 +32,36 @@ Constraints:
 1 <= truckSize <= 106
 https://leetcode.com/problems/maximum-units-on-a-truck/
 */
+/*
+Approach.
+we sort the array by highest number of boxes first.
+Integer.compare(b[1],a[1]);
+when we do compare if we add the second comparable variable first this means that 
+we are sorting from highest to lowest also know as reverse order.
+Collections.reverseOrder()
+*/
+
+// fewest lines solution Comparator with lambda expressions
+
+class Solution {
+    public int maximumUnits(int[][] boxTypes, int truckSize) {
+        Arrays.sort(boxTypes, (a,b) -> Integer.compare(b[1],a[1]));
+        int noUnits = 0;
+        int usedSpace = 0;
+        for(int[] box : boxTypes){
+            if(usedSpace >= truckSize)break;
+            int spaceLeft = truckSize -  usedSpace;
+            int units = box[1];
+            int boxes = box[0];
+            
+            noUnits += spaceLeft < boxes ? (spaceLeft * units) : (boxes * units);
+
+            usedSpace += boxes;
+        }
+        
+        return noUnits;
+    }
+}
 
 class Solution {
     public int maximumUnits(int[][] boxTypes, int truckSize) {
@@ -66,3 +96,4 @@ class Solution {
         return res;
     }
 }
+

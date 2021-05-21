@@ -33,6 +33,10 @@ s contains only lowercase English letters.
 https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/
 */
 
+/*
+approach, add frecuency to a set if that frequency already exists then substract one and repeat.
+for each time this happens add plus one to the result
+*/
 class Solution {
     public int minDeletions(String s) {
         int[] dic = new int[26];
