@@ -40,6 +40,37 @@ Each node has a unique integer value from 1 to 100.
  *     }
  * }
  */
+
+/*
+dfs approach
+*/
+class Solution {
+    TreeNode xParent = null;
+    TreeNode yParent = null;
+    int xDepth = -1, yDepth = -1;
+    
+    public boolean isCousins(TreeNode root, int x, int y) {
+        getDepthAndParent(root, x, y, 0, null);
+        return xDepth == yDepth && xParent != yParent;
+    }
+    //get both the depth and parent for x and y
+    public void getDepthAndParent(TreeNode root, int x, int y, int depth, TreeNode parent){
+        if(root == null){
+            return;
+        }
+        if(root.val == x){
+            xParent = parent;
+            xDepth = depth;
+        }else if(root.val == y){
+            yParent = parent;
+            yDepth = depth;
+        }else{
+            getDepthAndParent(root.left, x, y, depth + 1, root);
+            getDepthAndParent(root.right, x, y, depth + 1, root);            
+        }
+    }
+}
+
 class Solution {
     public boolean isCousins(TreeNode root, int x, int y) {
         AtomicInteger pX = new AtomicInteger();    //parent of x

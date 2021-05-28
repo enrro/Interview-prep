@@ -21,6 +21,37 @@ Input:
 Output: 3
 */
 
+/**
+Approach
+cound if land is found and then sink every piece of land in an island 
+ */
+class Solution {
+    public int numIslands(char[][] grid) {
+        int islands = 0; 
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid[i].length; j++){
+                if(grid[i][j] == '1'){
+                    mark(grid,i,j);
+                    islands++;
+                }
+            }
+        }
+        
+        return islands;
+    }
+    
+    public void mark(char[][] grid, int i, int j){
+        if(i < 0 || j < 0 || i > grid.length - 1 || j > grid[i].length -1 || grid[i][j] == '0') return;
+        grid[i][j] = '0';
+        
+        mark(grid,i + 1,j);
+        mark(grid,i - 1,j);
+        mark(grid,i,j + 1);
+        mark(grid,i,j - 1);
+    }
+}
+
+
 class Solution {
     public int numIslands(char[][] grid) {
         if(grid.length ==  0 || grid  == null) return 0;

@@ -49,3 +49,5 @@ class Solution {
         return res.stream().mapToInt(i->i).toArray();
     }
 }
+
+/* from List<Integer> to int array

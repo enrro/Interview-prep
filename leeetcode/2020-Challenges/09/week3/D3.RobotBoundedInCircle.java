@@ -38,12 +38,17 @@ https://leetcode.com/explore/featured/card/september-leetcoding-challenge/556/we
 */
 class Solution {
     // reference https://leetcode.com/problems/robot-bounded-in-circle/discuss/290859/java-solution-%2B-clear-explanation 
-    /*First of all, this isn't an easy question. I thought hard about this one. there are two things I found important. One, if you end up where you started, it is a circle. Two, if you end up in a different place with facing north (again), hence you are drifting away. All other scenarios are going to be in a circle (or come back) in infinity no matter. You can think that the starting and the end point form a vector. Unless the end direction is north, concataned vectors will always end up on the starting point eventually (infinity).
+    /*First of all, this isn't an easy question. I thought hard about this one. there are two things I found important.
+     One, if you end up where you started, it is a circle. Two, if you end up in a different place with facing north (again),
+     hence you are drifting away. 
+     All other scenarios are going to be in a circle (or come back) in infinity no matter.
+     You can think that the starting and the end point form a vector. Unless the end direction is north, concataned
+     vectors will always end up on the starting point eventually (infinity).
     */
     public boolean isRobotBounded(String instructions) {
         int[] cur = new int[] {0, 0};
         int[][] dirs = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-        int dir = 0; // 0:north(up), 1: right, 2: down, 3: left
+        int dir = 0;     // 0:north(up), 1: right, 2: down, 3: left
         
         for (char in : instructions.toCharArray()) {
             if (in == 'G') {
