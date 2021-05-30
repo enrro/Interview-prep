@@ -26,6 +26,17 @@ Constraints:
 0 <= nums.length <= 300
 -231 <= nums[i] <= 231 - 1
 */
+
+/*
+approach
+we know the values are from 1 to n 
+place the value x on its position x
+finally iterate the array agains
+where the values are not their possition
+then that position is missing and that 
+is the answer. if that dosnt happen then 
+the answer is the len of the array + 1
+*/
 class Solution {
     public int firstMissingPositive(int[] nums) {
         for(int i = 0; i < nums.length; i++){
