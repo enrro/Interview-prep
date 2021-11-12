@@ -24,7 +24,11 @@ Follow up: Your algorithm's time complexity must be better than O(n log n), wher
 
 https://leetcode.com/explore/interview/card/amazon/79/sorting-and-searching/2995/
 */
-
+/*
+approach
+with a maxHeap we can always poll a number with the max frequency
+note: in a comparator when the second value comes first its reverse natural order sort. (from highest to lowest)
+*/
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> map = new HashMap<>();
@@ -34,7 +38,7 @@ class Solution {
 
         //https://docs.oracle.com/javase/8/docs/api/java/util/Map.Entry.html 
         PriorityQueue<Map.Entry<Integer, Integer>> minHeap =
-            new PriorityQueue<>((a, b) -> Integer.compare(a.getValue(), b.getValue()));
+            new PriorityQueue<>((a, b) -> Integer.compare(b.getValue(), a.getValue()));
         for(Map.Entry<Integer,Integer> entry: map.entrySet()){
             minHeap.add(entry);
             if (minHeap.size() > k) minHeap.poll(); 
