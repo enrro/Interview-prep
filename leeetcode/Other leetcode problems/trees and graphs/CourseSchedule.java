@@ -44,8 +44,26 @@ class Solution {
     this means a cycle on the edge list.
     on the other hand if we are exploring and find a node in the 2 state thats ok. because its 
     already being completely visited before.
+
+    0  -> 1
+    | ^
+    |  \
+    V    \
+    2 -> 3
+    This was my best take at making the adjacency list [[0,1], [0,2], [2,3], [3,0]]
+
+    very important
+    an adjacency list would look like this 
+    0 -> 1, 2
+    1 -> null
+    2 -> 3
+    3 -> 0
+
+
+
     */
     public boolean canFinish(int numCourses, int[][] prerequisites) {
+        // step 1. create adjacency list
         ArrayList<Integer>[] adj = new ArrayList[numCourses];
         for(int i = 0; i < numCourses;i++ ){
             adj[i]= new ArrayList();
@@ -54,21 +72,28 @@ class Solution {
         for(int[] pre : prerequisites){
             adj[pre[0]].add(pre[1]);
         }
+        // step 2. keep an array of visited
+        // state unvisited == 0
+        // state being visited == 1
+        // state completely visited == 2
         int[] visited = new int[numCourses];
+
+        // step 3. start a dfs. from a node visit all the nodes that are reachable from there
         for(int i = 0; i< numCourses; i++){
-            if(visited[i] == 0 && !dfs(adj,visited,i)){
+            if(visited[i] == 0 && !isAcyclicGraphDFS(adj, visited, i)){
                 return false;
             }
         }
         return true;
     }
     
-    private boolean dfs(ArrayList<Integer>[] adj, int[] visited, int v){
+    // return false if this finds a cycle.
+    private boolean isAcyclicGraphDFS(ArrayList<Integer>[] adj, int[] visited, int v){
+        // if the currently being visited is on being visited during this run then we have a back edge (one that could cycle us)
         if(visited[v] == 1) return false;
-        if(visited[v] == 2) return true;
         visited[v] = 1;
         for(int ad: adj[v]){
-            if(!dfs(adj,visited,ad)) return false;
+            if(!isAcyclicGraphDFS(adj,visited,ad)) return false;
         }
         visited[v] = 2;
         return true;

@@ -26,6 +26,11 @@ Constraints:
 https://leetcode.com/explore/challenge/card/may-leetcoding-challenge-2021/601/week-4-may-22nd-may-28th/3758/
 */
 
+/*
+approach sliding window. Add values until a repeated is found, then remove the value from the tail until the value at the front is removed.
+
+*/
+
 class Solution {
     public int maximumUniqueSubarray(int[] nums) {
         HashSet<Integer> set = new HashSet();
