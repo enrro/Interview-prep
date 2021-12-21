@@ -44,3 +44,23 @@ class Solution {
     }
 }
 
+// another approach 
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        HashSet<Character> set = new HashSet<>();
+        int n = s.length();
+        int max = 0;
+        for(int r = 0, l = 0; r < n; r++){
+            char c = s.charAt(r);
+            if(set.add(c)){
+                max = Math.max(max, set.size());
+            }else{
+                while(!set.add(c)){
+                    set.remove(s.charAt(l++));
+                }
+            }
+            
+        }
+        return max;
+    }
+}

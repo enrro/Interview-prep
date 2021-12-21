@@ -47,3 +47,38 @@ class Solution {
         return res;
     }
 }
+
+// another approach
+// improvement. slightly optimized on positive numbers on nums[i]
+// because if they are sorted and i is positive there is no positive sum that returns 0;
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+        System.out.println(Arrays.toString(nums));
+        int  n = nums.length;
+        // n - 2 because we are looking for 3 diff elements at lest.
+        for(int i = 0; i < n - 2; i++){
+            if(nums[i] > 0) break;
+            // make sure we don't repeat a tripple by skipping elements that are the same as the last one.
+            if(i == 0 || nums[i] != nums[i - 1]){
+                int l = i + 1, r = n - 1, targetSum = 0 - nums[i];
+                // sliding window to the target sum.
+                while(l < r){
+                    if(nums[l] + nums[r] == targetSum){
+                        list.add(Arrays.asList(nums[i], nums[l], nums[r]));
+                        // second strategy to avoid repeated numbers. skipp similar elements.
+                        while (l < r && nums[l] == nums[l+1]) l++;
+                        while (l < r && nums[r] == nums[r-1]) r--;
+                        l++;
+                        r--;
+                    } else if(nums[l] + nums[r] < targetSum) l++;
+                    else r--;
+                }
+            }
+        }
+        
+        return list;
+    }
+}
