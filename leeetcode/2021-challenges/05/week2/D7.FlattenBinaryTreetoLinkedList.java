@@ -42,23 +42,91 @@ Follow up: Can you flatten the tree in-place (with O(1) extra space)?
  *         this.right = right;
  *     }
  * }
+
+https://leetcode.com/explore/interview/card/facebook/52/trees-and-graphs/322/
  */
 
+ 
 
+
+/*
+approach explanation.
+
+from the original tree:
+
+    1
+   / \
+  2   5
+ / \   \
+3   4   6
+this is a post order traversal in which you navigate right -> left -> root.
+
+If we traverse the flattened tree in the reverse way, we would notice that [6->5->4->3->2->1]
+ is in (right, left, root) order of the original tree. So the reverse order after flattening 
+ is post order traversal in (right, left, root) order like [6->5->4->3->2->1].
+
+The idea is to traverse the original tree in this order by
+
+public void flatten(TreeNode root) {
+    if (root == null)
+        return;
+    flatten(root.right);
+    flatten(root.left);
+}
+
+and then set each node's right pointer as the previous one in [6->5->4->3->2->1],
+ as such the right pointer behaves similar to a link in the  
+ flattened tree(though technically, it's still a right child reference from the tree data structure's perspective) 
+ and set the left child as null before the end of one recursion by
+private TreeNode prev = null;
+
+public void flatten(TreeNode root) {
+    if (root == null)
+        return;
+    flatten(root.right);
+    flatten(root.left);
+    root.right = prev;
+    root.left = null;
+    prev = root;
+}
+
+*/
+
+/**
+approach with no globlal variable
+ */
 class Solution {
     public void flatten(TreeNode root) {
         flatten(root,null);
     }
-    private TreeNode flatten(TreeNode root, TreeNode pre) {
-        if(root==null) return pre;
-        pre=flatten(root.right,pre);    
-        pre=flatten(root.left,pre);
-        root.right=pre;
+
+
+    private TreeNode flatten(TreeNode root, TreeNode prev) {
+        if(root==null) return prev;
+        prev=flatten(root.right,prev);    
+        prev=flatten(root.left,prev);
+        root.right=prev;
         root.left=null;
-        pre=root;
-        return pre;
+        return prev;
     }
 }
+
+/**
+this is a similar approach but with a global variable.
+
+ */
+private TreeNode prev = null;
+
+public void flatten(TreeNode root) {
+    if (root == null)
+        return;
+    flatten(root.right);
+    flatten(root.left);
+    root.right = prev;
+    root.left = null;
+    prev = root;
+}
+
 /*approach
     1
    / \

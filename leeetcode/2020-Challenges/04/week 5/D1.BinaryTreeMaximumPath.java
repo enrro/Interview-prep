@@ -20,6 +20,11 @@ https://leetcode.com/explore/other/card/30-day-leetcoding-challenge/532/week-5/3
 //         int leftDiameter = diameter(root.left);
 //         int rightDiameter = diameter(root.right);
 //         return Math.max(rootDiameter, Math.max(leftDiameter,rightDiameter));
+
+/**
+approach
+post order traversal sum up 
+ */
 class Solution {
     int maxSum;
 public int maxPathSum(TreeNode root) {
@@ -29,10 +34,11 @@ public int maxPathSum(TreeNode root) {
     }
     
     // maxSum is the sum of the path with the highest value
-    // Math.max(left,right) + root.val on the other hand is for the upper layer int maxLeft and maxRight. because we cannot choose both of them
+    // Math.max(left,right) + root.val on the other hand
+    // is for the upper layer int maxLeft and maxRight. because we cannot choose both of them
     public int maxOfTree(TreeNode root){
         if(root == null) return 0;
-        int maxLeft = Integer.max(0,maxOfTree(root.left));
+        int maxLeft = Integer.max(0,maxOfTree(root.left)); //postorder sum-up
         int maxRight = Integer.max(0, maxOfTree(root.right));
         
         maxSum = Integer.max(maxSum, maxLeft + maxRight + root.val);
@@ -40,3 +46,10 @@ public int maxPathSum(TreeNode root) {
         return Integer.max(maxLeft, maxRight) + root.val;
     }
 }
+
+/**
+The most tricky point is the global variable maxValue in the following sentence:
+
+maxValue = Math.max(maxValue, left + right + node.val);
+The second maxValue contains the bigger between the left sub-tree and right sub-tree.
+if (left + right + node.val < maxValue ) then the result will not include the parent node which means the maximum path is in the left branch or right branch. */

@@ -50,6 +50,11 @@ You may assume k is always valid, 1 ≤ k ≤ BST's total elements.
  *     }
  * }
  */
+
+ 
+/*
+recursive inorder traversal solution 
+*/
 class Solution {
     public int kthSmallest(TreeNode root, int k) {
         int[] nums = new int[2];
@@ -64,6 +69,25 @@ class Solution {
             return;
         }
         inorder(root.right,k,nums);
+    }
+}
+
+/*
+iterative inorder traversal solution 
+*/
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        Stack<TreeNode> stack = new Stack();
+        while(root != null || !stack.isEmpty()){
+            while(root != null){
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            if(--k == 0) break;
+            root = root.right;
+        }
         
+        return root.val;
     }
 }

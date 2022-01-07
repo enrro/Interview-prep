@@ -30,18 +30,39 @@ The number of nodes in the tree is in the range [2, 105].
 All Node.val are unique.
 p != q
 p and q will exist in the BST.
+https://leetcode.com/explore/interview/card/facebook/52/trees-and-graphs/3024/
+*/
+
+/*
+a post order traversal approach.
+
+/*approach
+      3
+   /    \
+  5      1
+ / \    / \
+6   2  0   8
+   / \
+  7   4
+big O notation sol = O(n) 
+
+If p or q are found on the left it stops and returns that node and doesn’t check the rest of the left sub tree.
+Why?
+Because if second node (p or q) is somewhere below in the current left sub tree – then current node is LCA and it already has it. 
+How does it know whether second node is below in the current sub tree or not? 
+It goes to check a right branch.
+If right branch doesn’t have second node then it’s somewhere below in the left sub tree where we found first p or q and it’s below the node we already found so the node we found on the left is LCA.
 
 */
 
-
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-                if(root == null || root == p || root == q) return root;
+        if(root == null || root == p || root == q) return root;
         TreeNode left = lowestCommonAncestor(root.left, p, q);
         TreeNode right = lowestCommonAncestor(root.right, p, q);
         
         if(left == null) return right;
-        else if(right == null) return left;
+        if(right == null) return left;
         else return root;
     }
 }
