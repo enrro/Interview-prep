@@ -82,3 +82,37 @@ class Solution {
         return dummy.next;
     }
 }
+
+// solution b with simplier comparator with lambda expression
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+
+        //other example of comparator 
+        // substracting comparator
+        //Comparator<ListNode> comparator = (ListNode a, ListNode b) -> a.val - b.val;
+        // reversing comparator
+        //comparator = comparator.reversed();
+        PriorityQueue<ListNode> pq = new PriorityQueue<>((ListNode a, ListNode b) -> a.val - b.val);
+        
+        for(ListNode list: lists){
+            if(list != null){
+                pq.add(list);
+            }
+        }
+        
+        //pq.forEach(list -> System.out.println(list.val));
+        
+        ListNode dummy = new ListNode();
+        ListNode head = dummy;
+        
+        while(!pq.isEmpty()){
+            head.next = pq.poll();
+            head = head.next;
+            
+            if(head.next != null){
+                pq.add(head.next);
+            }
+        }
+        return dummy.next;
+    }
+}
