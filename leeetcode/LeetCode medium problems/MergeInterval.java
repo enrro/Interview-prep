@@ -40,10 +40,17 @@ class Solution {
                 currentInterval = interval;
                 output.add(currentInterval);
             }
-            
-            
+
         }
-        
+        /** you can replece the above for with this one 
+            for(int[] interval : intervals){
+                if(interval[0] <= cur[1]){
+                    cur[1] = interval[1];
+                }else{
+                    cur = interval;
+                    list.add(cur);
+            }
+        */
         
         return output.toArray(new int[output.size()][]);
         

@@ -25,24 +25,24 @@ minus the height of the current position
  */
 class Solution {
     public int trap(int[] height) {
-        int head = height.length - 1, tail = 0;
-        int headPeak = 0, tailPeak = 0;
-        int trappedWater = 0; 
+        int n = height.length;
+        int l = 0, r = n - 1;
+        int maxL = 0, maxR = 0;
+        int water = 0;
         
-        while(tail < head){
-            tailPeak = Math.max(tailPeak, height[tail]);
-            headPeak = Math.max(headPeak, height[head]);
+        while(l < r){
+            maxL = Math.max(maxL, height[l]);
+            maxR = Math.max(maxR, height[r]);
             
-            if(tailPeak < headPeak){
-                trappedWater += tailPeak - height[tail];
-                tail++;
-            }
-            else{
-                trappedWater += headPeak - height[head];
-                head--;
+            if(maxL < maxR){
+                water += maxL - height[l];
+                l++;
+            }else{
+                water += maxR - height[r];
+                r--;
             }
         }
         
-        return trappedWater;
+        return water;
     }
 }

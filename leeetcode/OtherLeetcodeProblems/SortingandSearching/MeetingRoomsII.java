@@ -23,28 +23,28 @@ https://leetcode.com/explore/interview/card/amazon/79/sorting-and-searching/497/
 class Solution {
     public int minMeetingRooms(int[][] intervals) {
         int n = intervals.length;
-        int[] startTime = new int[n];
-        int[] endTime = new int[n];
+        int[] starts = new int[n];
+        int[] ends = new int[n];
         
         for(int i = 0; i < n; i++){
-            startTime[i] = intervals[i][0];
-            endTime[i] = intervals[i][1];
+            starts[i] = intervals[i][0];
+            ends[i] = intervals[i][1];
         }
         
-        Arrays.sort(startTime);
-        Arrays.sort(endTime);
-        int rooms = 0;
-        int endsItr = 0;
+        Arrays.sort(starts);
+        Arrays.sort(ends);
+        int room = 0;
         
-        for(int i = 0; i < n; i++){
-            if(startTime[i]<endTime[endsItr]){
-                rooms++;
-            }else{
-                endsItr++;
+        // if a meeting starts before the last one ends then we need another room.
+        // else if a meeting ends after the last one is finished. we can keep going
+        for(int startIndex = 0, endIndex = 0; startIndex < n; startIndex++){
+            if(starts[startIndex] < ends[endIndex]){
+                room++;
+            } else{
+                endIndex++;
             }
-
         }
         
-        return rooms;
+        return room;
     }
 }

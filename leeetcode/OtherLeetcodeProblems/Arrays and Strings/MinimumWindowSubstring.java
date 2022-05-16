@@ -33,22 +33,21 @@ size use another integer.
 */
 
 class Solution {
-    public String minWindow(String s, String t) {
-        HashMap<Character, Integer> map = new HashMap();
-        for(char c : t.toCharArray()){
+        public String minWindow(String s, String t) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        
+        for(char c: t.toCharArray()){
             map.put(c, map.getOrDefault(c, 0) + 1);
         }
         
-        int l = 0;
         int minl = 0;
         int minr = s.length();
-        int count = 0;
         
-        for(int r = 0; r < s.length(); r++){
+        for(int l = 0, r = 0, count = 0; r < s.length(); r++){
             char c = s.charAt(r);
             if(map.containsKey(c)){
                 map.put(c, map.get(c) - 1);
-                if(map.get(c) >= 0)count++;
+                if(map.get(c) >= 0) count++;
             }
             
             while(count == t.length()){
@@ -59,13 +58,14 @@ class Solution {
                 char cl = s.charAt(l);
                 if(map.containsKey(cl)){
                     map.put(cl, map.get(cl) + 1);
-                    if(map.get(cl) > 0)count--;
+                    if(map.get(cl) > 0) count--;
                 }
                 l++;
             }
         }
-        if(minr == s.length()) return "";
         
-        return s.substring(minl, minl+minr+1);
+        if(minr == s.length()) return "";        
+        
+        return s.substring(minl, minl + minr + 1);
     }
 }

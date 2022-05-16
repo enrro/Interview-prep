@@ -53,6 +53,8 @@ class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         if (lists==null||lists.length==0) return null;
         
+
+        // priority queue large route
         PriorityQueue<ListNode> queue= new PriorityQueue<ListNode>(lists.length,new Comparator<ListNode>(){
             @Override
             public int compare(ListNode o1,ListNode o2){
@@ -116,3 +118,16 @@ class Solution {
         return dummy.next;
     }
 }
+
+/*
+// priority queue not as slow route
+PriorityQueue<ListNode> priorityQueue = new PriorityQueue<>(list.length, new Comparator<>(
+    @Override
+    public int compare(ListNode l1, ListNode l2){
+        return l1.val - l2.val;
+    }
+))
+
+// priority queue fast route
+PriorityQueue<ListNode> priorityQueue = new PriorityQueue<>((a,b) -> a.val - b.val);
+*/
