@@ -56,3 +56,42 @@ class Solution {
         return result;
     }
 }
+
+/*
+slightly more verbose. highly more readable
+*/
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        int[] letters = new int[26]; 
+        int n = p.length();
+        List<Integer> out = new ArrayList<>();
+        for(char c : p.toCharArray()){
+            letters[c - 'a']++;
+        }
+        
+        int left = 0;
+        int right = 0;
+        int count = p.length();
+        // s: "cbaebabacd" p: "abc"
+        while(right < s.length()){
+            if(letters[s.charAt(right) - 'a'] >= 1) count--;
+            letters[s.charAt(right) - 'a']--;
+            right++;
+            if(count == 0) out.add(left);
+            
+            // if you have expanded the window to the size of the string to 
+            // 1. move the left part 
+            // 2. recover the character that you substracted.
+            if(right - left == p.length()){
+                if(letters[s.charAt(left) - 'a'] >= 0){
+                    count++;
+                }
+                letters[s.charAt(left) - 'a']++;
+                left++;
+            }
+            
+        }
+        return out;
+    }
+}

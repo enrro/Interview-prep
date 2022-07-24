@@ -11,6 +11,7 @@ Given a binary tree
 Return 3, which is the length of the path [4,2,1,3] or [5,2,1,3].
 
 Note: The length of path between two nodes is represented by the number of edges between them.
+ https://leetcode.com/explore/interview/card/facebook/52/trees-and-graphs/291/
 */
 /**
  * Definition for a binary tree node.
@@ -21,6 +22,26 @@ Note: The length of path between two nodes is represented by the number of edges
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+// solution very similar to BinaryTreeMaximumPath
+class Solution {
+    int max = 0;
+    public int diameterOfBinaryTree(TreeNode root) {
+        recDiameter(root);
+        return max;
+    }
+    
+    public int recDiameter(TreeNode root){
+        if(root == null) return 0;
+        
+        int left = recDiameter(root.left);
+        int right = recDiameter(root.right);
+        max = Math.max(max, left + right);
+        return Math.max(left, right) + 1;
+    }
+}
+
+
 class Solution {
     public int diameterOfBinaryTree(TreeNode root) {
         if(root == null) return 0;

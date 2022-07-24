@@ -78,3 +78,37 @@ class Solution {
         
     }
 }
+
+/*other sol*/
+
+class Solution {
+    public boolean backspaceCompare(String s, String t) {
+        Stack<Character> stackS = formStack(s);
+        Stack<Character> stackT = formStack(t);
+        
+        if(stackS.size() != stackT.size()){
+            return false;
+        }
+        
+        while(!stackS.isEmpty()){
+            if(stackS.pop() != stackT.pop()) return false;
+        }
+        
+        return true;
+    }
+    
+    
+    public Stack<Character> formStack(String s){
+        Stack<Character> stack = new Stack<>();
+        for(char c : s.toCharArray()){
+            if(c != '#'){
+                stack.push(c);
+            }else{
+                if(!stack.isEmpty()){
+                    stack.pop();
+                }
+            }
+        }
+        return stack;
+    }
+}

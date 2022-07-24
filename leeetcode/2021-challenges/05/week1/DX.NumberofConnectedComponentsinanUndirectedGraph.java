@@ -1,5 +1,6 @@
 /*
-You have a graph of n nodes. You are given an integer n and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph.
+You have a graph of n nodes. You are given an integer n and an array edges where edges[i] = [ai, bi] indicates
+ that there is an edge between ai and bi in the graph.
 
 Return the number of connected components in the graph.
 
@@ -25,33 +26,43 @@ edges[i].length == 2
 0 <= ai <= bi < n
 ai != bi
 There are no repeated edges.
+https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
 */
 
-class Solution {
-    //https://leetcode.com/explore/challenge/card/may-leetcoding-challenge-2021/598/week-1-may-1st-may-7th/3727/discuss/516491/Java-Union-Find-DFS-BFS-Solutions-Complexity-Explain-Clean-code
-    // approach, union path compression algorith.
-    public int countComponents(int n, int[][] edges) {
-        int[] roots = new int[n];
-        for(int i = 0; i < n; i++) roots[i] = i; 
 
-        for(int[] e : edges) {
-            int root1 = find(roots, e[0]);
-            int root2 = find(roots, e[1]);
-            System.out.println("root1: " + root1 + " root2: "+  root2);
-            if(root1 != root2) {      
+class Solution {
+    // approach: disjoint set with union path compression algorith.
+    /**
+    1. n points = n islands = n trees = n roots.
+    2. With each edge added, check which island is e[0] or e[1] belonging to.
+    3. If e[0] and e[1] are in same islands, do nothing.
+    4. Otherwise, union two islands, and reduce islands count by 1.
+    Bonus: path compression can reduce time by 50%.
+ */
+    // https://leetcode.com/explore/learn/card/graph/618/disjoint-set/3880/
+    public int countComponents(int n, int[][] edges) {
+        int[] roots = new int[n]; //disjoined set
+        for(int i =0; i < n; i++) roots[i] = i;
+        
+        for(int[] edge : edges){
+            int root1 = find(roots, edge[0]);
+            int root2 = find(roots, edge[1]);
+            
+            if(root1 != root2){
                 roots[root1] = root2;  // union
                 n--;
             }
         }
+        
         return n;
     }
     
-    public int find(int[] roots, int id) {
-        while(roots[id] != id) {
-            System.out.println("roots[id] != id " + (roots[id] != id) );
-            roots[id] = roots[roots[id]];  // optional: path compression
-            id = roots[id];
+    public int find(int[] roots, int edge){
+        int oldEdge = edge;
+        while(roots[edge] != edge){
+            edge = roots[edge];
         }
-        return id;
+        roots[oldEdge] = edge; //path optimization
+        return edge;
     }
 }

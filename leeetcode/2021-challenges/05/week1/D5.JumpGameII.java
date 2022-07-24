@@ -26,6 +26,28 @@ Constraints:
 0 <= nums[i] <= 105
 */
 
+/*
+I like this approach better
+*/
+class Solution {
+    public int jump(int[] nums) {
+        int jumps = 0, currentJumpEnd = 0, curFarthest = 0;
+        // Note that we exclude the last element from our iteration because as soon as we reach the last element, we do not need to jump anymore.
+        for(int i = 0; i < nums.length -1; i++){
+            // we continuously find the how far we can reach in the current jump
+            curFarthest = Math.max(curFarthest, i + nums[i]);
+            // if we have come to the end of the current jump,
+            // we need to make another jump
+            if(i == currentJumpEnd){
+                jumps++;
+                currentJumpEnd = curFarthest;
+            }
+        }
+        return jumps;
+    }
+}
+
+
 class Solution {
     // approach implicit bfs solution
     // i > curEnd; once all the items on the current level have been visited we have to jump
