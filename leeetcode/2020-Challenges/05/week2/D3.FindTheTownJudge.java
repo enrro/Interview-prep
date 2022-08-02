@@ -44,16 +44,16 @@ trust[i][0] != trust[i][1]
 */
 
 class Solution {
-    public int findJudge(int N, int[][] trust) {
-        int[] count = new int[N+1];
+    public int findJudge(int n, int[][] trust) {
+        int[] arr = new int[n + 1];
         
-        for(int[] arr : trust){
-            count[arr[1]]++;
-            count[arr[0]]--;
+        for(int i = 0; i < trust.length; i++){
+            arr[trust[i][0]]--;
+            arr[trust[i][1]]++;
         }
         
-        for(int i =1 ; i < count.length; i++){
-            if(count[i] == N-1){
+        for(int i = 1; i < arr.length; i++){
+            if(arr[i] == n - 1){
                 return i;
             }
         }
