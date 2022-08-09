@@ -40,8 +40,8 @@ class Solution {
             map.put(c, map.getOrDefault(c, 0) + 1);
         }
         
-        int minl = 0;
-        int minr = s.length();
+        int minLeft = 0;
+        int minLength = s.length();
         
         for(int l = 0, r = 0, count = 0; r < s.length(); r++){
             char c = s.charAt(r);
@@ -51,9 +51,9 @@ class Solution {
             }
             
             while(count == t.length()){
-                if(r - l < minr){
-                    minl = l;
-                    minr = r - l;
+                if(r - l < minLength){
+                    minLeft = l;
+                    minLength = r - l;
                 }
                 char cl = s.charAt(l);
                 if(map.containsKey(cl)){
@@ -64,8 +64,8 @@ class Solution {
             }
         }
         
-        if(minr == s.length()) return "";        
+        if(minLength == s.length()) return "";        
         
-        return s.substring(minl, minl + minr + 1);
+        return s.substring(minLeft, minLeft + minLength + 1);
     }
 }

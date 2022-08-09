@@ -32,24 +32,31 @@ grid1[i][j] and grid2[i][j] are either 0 or 1.
 */
 
 class Solution {
-    public int countSubIslands(int[][] B, int[][] A) {
-        int m = A.length, n = A[0].length, res = 0;
-        for (int i = 0; i < m; i++)
-            for (int j = 0; j < n; j++)
-                if (A[i][j] == 1)
-                    res += dfs(B, A, i, j);
-        return res;
+    public int countSubIslands(int[][] grid1, int[][] grid2) {
+        int count = 0;
+        int n = grid1.length;
+        int m = grid1[0].length;
+        
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(grid2[i][j] == 1){
+                    count += dfs(grid1, grid2, i, j);
+                }
+            }
+        }
+        
+        return count;
     }
-
-
-    private int dfs(int[][] B, int[][] A, int i, int j) {
-        int m = A.length, n = A[0].length, res = 1;
-        if (i < 0 || i == m || j < 0 || j == n || A[i][j] == 0) return 1;
-        A[i][j] = 0;
-        res &= dfs(B, A, i - 1, j);
-        res &= dfs(B, A, i + 1, j);
-        res &= dfs(B, A, i, j - 1);
-        res &= dfs(B, A, i, j + 1);
-        return res & B[i][j];
+    
+    public int dfs(int[][] grid1, int[][] grid2, int i, int j){
+        int res = 1;
+        if(i < 0 || j < 0 || i >= grid2.length || j >= grid2[0].length || grid2[i][j] == 0) return 1;
+        grid2[i][j] = 0;
+        
+        res &= dfs(grid1, grid2, i + 1, j);
+        res &= dfs(grid1, grid2, i - 1, j);
+        res &= dfs(grid1, grid2, i, j + 1);
+        res &= dfs(grid1, grid2, i, j - 1);
+        return res & grid1[i][j];
     }
 }

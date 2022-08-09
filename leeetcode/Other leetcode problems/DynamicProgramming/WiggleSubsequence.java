@@ -42,7 +42,16 @@ down position, it means nums[i] < nums[i-1]nums[i]<nums[i−1]
 equals to position, nums[i] == nums[i-1]nums[i]==nums[i−1]
 The updates are done as:
 
-If nums[i] > nums[i-1]nums[i]>nums[i−1], that means it wiggles up. The element before it must be a down position. So up[i] = down[i-1] + 1up[i]=down[i−1]+1, down[i]down[i] remains the same as down[i-1]down[i−1]. If nums[i] < nums[i-1]nums[i]<nums[i−1], that means it wiggles down. The element before it must be a up position. So down[i] = up[i-1] + 1down[i]=up[i−1]+1, up[i]up[i] remains the same as up[i-1]up[i−1]. If nums[i] == nums[i-1]nums[i]==nums[i−1], that means it will not change anything becaue it didn't wiggle at all. So both down[i]down[i] and up[i]up[i] remain the same as down[i-1]down[i−1] and up[i-1]up[i−1].
+If nums[i] > nums[i-1], that means it wiggles up.
+The element before it must be a down position. So up[i] = down[i-1] + 1, down[i] remains the same as down[i-1]. 
+
+If nums[i] < nums[i-1], that means it wiggles down. The element before it must be a up position.
+
+So down[i] = up[i-1] + 1, up[i] remains the same as up[i-1].
+
+If nums[i] == nums[i-1] that means it will not change anything becaue it didn't wiggle at all.
+
+So both down[i] and up[i] remain the same as down[i−1] and up[i−1].
 
 
 */
@@ -69,5 +78,27 @@ class Solution {
         }
         
         return Math.max(top[n-1], bot[n-1]);
+    }
+}
+
+/*
+But we can observe that in the DP approach, for updating elements up[i] and down[i],
+we need only the elements up[i−1] and down[i−1]. 
+
+Thus, we can save space by not using the whole array, but only the last elements.
+*/
+
+public class Solution {
+    public int wiggleMaxLength(int[] nums) {
+        if (nums.length < 2)
+            return nums.length;
+        int down = 1, up = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > nums[i - 1])
+                up = down + 1;
+            else if (nums[i] < nums[i - 1])
+                down = up + 1;
+        }
+        return Math.max(down, up);
     }
 }

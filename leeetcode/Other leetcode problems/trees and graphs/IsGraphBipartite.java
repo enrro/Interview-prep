@@ -69,3 +69,15 @@ If it has been colored, check if the current color is the same as the color that
         return true;
     }
 }
+    public boolean validColor(int[][] g, int[] colors, int color, int node){
+        if(colors[node] != 0){
+            return colors[node] == color;
+        }
+        colors[node] = color;
+        for(int adjacent: g[node]){
+            if(!validColor(g, colors, -color, adjacent)){
+                return false;
+            }
+        }
+        return false;
+    }

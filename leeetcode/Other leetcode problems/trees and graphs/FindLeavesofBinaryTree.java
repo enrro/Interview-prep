@@ -46,7 +46,7 @@ class Solution {
     public int height(TreeNode root, List<List<Integer>> list){
         if(root == null) return - 1;
         int height = 1 + Math.max(height(root.left, list), height(root.right, list));
-        if(list.size() < height + 1) list.add(new ArrayList<Integer>());
+        if(list.size() < height + 1) list.add(new ArrayList<Integer>()); // + 1 due to the base case returning -1; 
         list.get(height).add(root.val);
         return height;
     }

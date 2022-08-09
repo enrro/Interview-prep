@@ -52,20 +52,21 @@ class Solution {
         int m = grid[0].length;
         int sum = 0;
         
-        for(int i = 0; i < n;i++){
-            if(grid[i][0] == 0){
-                floodfill(grid, i, 0);
+        for(int row = 0; row < n; row++){
+            if (grid[row][0] == 0){
+                floodIsland(grid, row, 0);
             }
-            if(grid[i][m -1] == 0){
-                floodfill(grid, i, m -1);
+            if(grid[row][m - 1] == 0){
+                floodIsland(grid, row, m - 1);
             }
         }
-        for(int j = 0; j < m; j++){
-            if(grid[0][j] == 0){
-                floodfill(grid, 0, j);
+        
+        for(int col = 0; col < m; col++){
+            if(grid[0][col] == 0){
+                floodIsland(grid, 0, col);
             }
-            if(grid[n - 1][j] == 0){
-                floodfill(grid, n - 1, j);
+            if(grid[n - 1][col] == 0){
+                floodIsland(grid, n - 1, col);
             }
         }
         

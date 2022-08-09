@@ -20,17 +20,17 @@ class Solution {
         int end = 0;
         
         for(int i = 0; i < s.length(); i++){
-            int odd =  longestFromMiddle(s,i,i);
-            int even = longestFromMiddle(s,i,i+1);
+            int odd =  longestFromMiddle(s,i,i); // //assume odd length, try to extend Palindrome as possible. example " aba"
+            int even = longestFromMiddle(s,i,i+1); //assume even length. example "abba"
             int maxlen = Math.max(odd, even);
             
             if(maxlen > (end - start)){
-                start = i - ((maxlen - 1) / 2);
+                start = i - ((maxlen - 1) / 2); // minus 1 to account for oneself. think of base case 1 for word "a" and first even case "bb"
                 end = i + ((maxlen) / 2);
             }   
         }
         
-        return s.substring(start,end+1);
+        return s.substring(start, end + 1); // substring dosn't add the end so we need to add + 1 to add to the result
     }
     
     public int longestFromMiddle(String s, int left, int right){

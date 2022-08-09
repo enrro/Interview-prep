@@ -25,25 +25,18 @@ The value of each color in image[i][j] and newColor will be an integer in [0, 65
 */
 
 class Solution {
-    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
-        if(image == null || image.length == 0 || image[sr][sc] == newColor ) return image;
-        floodFill(image, sr, sc, image[sr][sc], newColor);
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        floodfill(image, sr, sc, color, image[sr][sc]);
         return image;
     }
-    public void floodFill(int[][] image, int sr, int sc, int oldColor, int newColor){
-        if(sr < 0 ||
-           sr > image.length -1 ||
-           sc < 0 ||
-           sc > image[0].length - 1){
-            return;
-        }
+    
+    public void floodfill(int[][] image, int sr, int sc, int color, int ogColor){
+        if(sr < 0 || sc < 0 || sr >= image.length || sc >= image[sr].length || image[sr][sc] == color || image[sr][sc] != ogColor ) return;
         
-        if(image[sr][sc] == oldColor){
-            image[sr][sc] = newColor;
-            floodFill(image, sr, sc + 1, oldColor, newColor);
-            floodFill(image, sr, sc - 1, oldColor, newColor);
-            floodFill(image, sr + 1, sc, oldColor, newColor);
-            floodFill(image, sr - 1, sc, oldColor, newColor);
-        }
+        image[sr][sc] = color;
+        floodfill(image, sr + 1, sc, color, ogColor);
+        floodfill(image, sr - 1, sc, color, ogColor);
+        floodfill(image, sr, sc + 1, color, ogColor);
+        floodfill(image, sr, sc - 1, color, ogColor);
     }
 }
