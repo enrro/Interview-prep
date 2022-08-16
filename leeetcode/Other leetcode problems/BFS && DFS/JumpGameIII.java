@@ -37,11 +37,13 @@ Constraints:
 https://leetcode.com/problems/jump-game-iii/
 */
 
+// We can also use the input array to track visited cells. Note that I just add arr.length to the value, in case we want to restore the original values later.
+
 class Solution {
     public boolean canReach(int[] arr, int start) {
         if (start >= 0 && start < arr.length && arr[start] < arr.length) {
             int jump = arr[start];
-            arr[start] += arr.length;
+            arr[start] += arr.length; // marking values as visited
             return jump == 0 || canReach(arr, start + jump) || canReach(arr, start - jump);
         }
         return false;

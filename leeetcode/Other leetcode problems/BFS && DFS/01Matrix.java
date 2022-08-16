@@ -29,32 +29,36 @@ https://leetcode.com/problems/01-matrix/
 */
 
 class Solution {
-    public int[][] updateMatrix(int[][] matrix) {
+    public int[][] updateMatrix(int[][] mat) {
         Queue<int[]> queue = new LinkedList<>();
-        int m = matrix.length, n = matrix[0].length;
-        boolean[][] visited = new boolean[m][n];
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (matrix[i][j] == 0) {
-                    queue.offer(new int[]{i, j});
+        int n = mat.length, m = mat[0].length;
+        boolean[][] visited = new boolean[n][m];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(mat[i][j] == 0){
+                    queue.add(new int[]{i,j});
                     visited[i][j] = true;
                 }
             }
         }
-        int[][] dir = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-        while (!queue.isEmpty()) {
-            int[] cur = queue.poll();
-            for (int i = 0; i < 4; i++) {
-                int row = cur[0] + dir[i][0];
-                int col = cur[1] + dir[i][1];
-                if (row < 0 || row >= m || col < 0 || col >= n || visited[row][col]) {
+        
+        int[][] directions = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
+        
+        while(!queue.isEmpty()){
+            int[] curr = queue.poll();
+            for(int[] dir : directions){
+                int row = dir[0] + curr[0];
+                int col = dir[1] + curr[1];
+                
+                if(row < 0 || col < 0 || row >= n || col >= m || visited[row][col]){
                     continue;
                 }
+                mat[row][col] = mat[curr[0]][curr[1]] + 1;
                 visited[row][col] = true;
-                matrix[row][col] = matrix[cur[0]][cur[1]] + 1;
                 queue.offer(new int[]{row, col});
             }
         }
-        return matrix;
+        
+        return mat;
     }
 }

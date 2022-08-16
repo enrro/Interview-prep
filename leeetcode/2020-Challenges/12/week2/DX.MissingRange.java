@@ -62,3 +62,47 @@ class Solution {
         return res;
     }
 }
+
+// not so clean but better interview wise cause you are more likely to come across this ans
+class Solution {
+    public List<String> findMissingRanges(int[] nums, int lower, int upper) {
+        int l = 0, r = 0;
+        List<Pair<Integer,Integer>> list = new ArrayList();
+        List<String> out = new ArrayList<>();
+        int n = nums.length;
+        if(n == 0){
+            list.add(new Pair(lower,upper));
+            return format(list);
+        }
+        if(nums[0] > lower){
+            list.add(new Pair(lower, nums[0] - 1));
+        }
+        for(int i = 1; i < n; i++){
+            int curr = nums[i];
+            if(curr - 1 != nums[i - 1]){
+                l = nums[i - 1] + 1;
+                r = curr -1;
+                list.add(new Pair(l, r));
+            }
+        }
+        
+        if(nums[n-1] < upper){
+            list.add(new Pair(nums[n-1] + 1, upper));
+        }
+        
+        return format(list);
+    }
+    
+    public List<String> format(List<Pair<Integer, Integer>> list){
+        List<String> out = new ArrayList<>();
+        
+        for(var pair : list){
+            if(pair.getKey() == pair.getValue()){
+                out.add("" + pair.getKey());
+            } else{
+                out.add(pair.getKey() + "->" + pair.getValue());
+            }
+        }
+        return out;
+    }
+}

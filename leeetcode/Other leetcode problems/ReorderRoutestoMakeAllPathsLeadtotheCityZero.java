@@ -41,20 +41,16 @@ connections[i][0] != connections[i][1]
 
 /*
 Apprach: Deep First Search
+Track Direction
+Based on the problem description, we have a tree, and node zero is the root.
+
+However, the direction can point either from a parent to a child (positive), or from a child to its parent (negative). To solve the problem, we traverse the tree and count edges that are directed from a parent to a child. Direction of those edges need to be changed to arrive at zero node.
+
+In the code below, I am using the adjacency list, and the sign indicates the direction. If the index is positive - the direction is from a parent to a child and we need to change it (change += (to > 0)).
+
+
 */
 class Solution {
-    int dfs(List<List<Integer>> al, boolean[] visited, int from) {
-        int change = 0;
-        visited[from] = true;
-        for (var to : al.get(from)){
-            System.out.println("from: " + from + " to: " + to);
-            if (!visited[Math.abs(to)])
-                change += dfs(al, visited, Math.abs(to)) + (to > 0 ? 1 : 0);
-        }
-        return change;   
-    }
-    
-    
     public int minReorder(int n, int[][] connections) {
         List<List<Integer>> al = new ArrayList<>();
         for(int i = 0; i < n; ++i) 
@@ -65,10 +61,17 @@ class Solution {
             
         }
         
-        // for(List<Integer> list : al){
-        //     System.out.println(list);
-        // }
-        
         return dfs(al, new boolean[n], 0);
+    }
+
+    int dfs(List<List<Integer>> al, boolean[] visited, int from) {
+        int change = 0;
+        visited[from] = true;
+        for (var to : al.get(from)){
+            System.out.println("from: " + from + " to: " + to);
+            if (!visited[Math.abs(to)])
+                change += dfs(al, visited, Math.abs(to)) + (to > 0 ? 1 : 0);
+        }
+        return change;   
     }
 }

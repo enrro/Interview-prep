@@ -35,6 +35,7 @@ All the values of rooms[i] are unique.
 https://leetcode.com/problems/keys-and-rooms/
 */
 
+//dfs approach
 class Solution {
     public boolean canVisitAllRooms(List<List<Integer>> rooms) {
         HashSet<Integer> visited = new HashSet<>();
@@ -59,4 +60,28 @@ class Solution {
         return rooms.size() == visited.size();
     }
     
+}
+
+// same approach but replaced the visited condition contains
+class Solution {
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        HashSet<Integer> visited = new HashSet<>();
+        Stack<Integer> dfs = new Stack<>();
+        
+        dfs.push(0);
+        visited.add(0);
+        
+        while(!dfs.isEmpty()){
+            int room = dfs.pop();
+            for(int key : rooms.get(room)){
+                if(visited.add(key)){
+                    dfs.push(key);
+                    
+                    if(visited.size() == rooms.size()) return true;
+                }
+            }
+        }
+        
+        return false;
+    }
 }

@@ -68,3 +68,29 @@ class Solution {
         return i; // Without Path Compression
     }
 }
+
+class Solution {
+    public int makeConnected(int n, int[][] connections) {
+        if(connections.length < n - 1) return -1;
+        
+        int components = n;
+        int[] parents = new int[n];
+        for (int i = 0; i < n; i++) parents[i] = i;
+        for(int[] connection: connections){
+            int p1 = find(parents, connection[0]);
+            int p2 = find(parents, connection[1]);
+            
+            if(p1 != p2){
+                parents[p1] = p2;
+                components--;
+            }
+        }
+        
+        return components - 1;
+    }
+    
+    public int find(int[] parents, int i){
+        if(parents[i] == i) return i;
+        return parents[i] = find(parents,parents[i]);
+    }
+}

@@ -34,7 +34,16 @@ The graph may contain self-loops.
 The number of edges in the graph will be in the range [1, 4 * 104].
 https://leetcode.com/problems/find-eventual-safe-states/
 */
+/**
+approach DFS solution with coloring mechanism
+Idea: 
+* Assign white (unvisited), grey (being visited) and black, (visited) 
+color to each of the vertex.
+* while doing DFS, if we encounter an edge from current vertex to a GREY
+vertex, then this edge is back edge and thus there is a cycle.
 
+back edge.- an edge that is from a node to itself.
+ */
 class Solution {
     public List<Integer> eventualSafeNodes(int[][] graph) {
         List<Integer> list = new ArrayList();
@@ -56,7 +65,7 @@ class Solution {
         }
         color[node] = 1;
         for(int n : graph[node]){
-            if(color[n] == 1 || !dfs(n, color, graph)){
+            if(!dfs(n, color, graph)){
                 return false;
             }
         }

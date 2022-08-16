@@ -38,6 +38,11 @@ informTime[i] == 0 if employee i has no subordinates.
 It is guaranteed that all the employees can be informed.
 https://leetcode.com/problems/time-needed-to-inform-all-employees/
 */
+
+/***
+approach
+we do a bfs and pass the current time we requiere to inform all. 
+ */
 class Solution {
     public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {
         List<List<Integer>> list = new ArrayList<>();

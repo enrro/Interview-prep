@@ -42,7 +42,15 @@ trust[i] are all different
 trust[i][0] != trust[i][1]
 1 <= trust[i][0], trust[i][1] <= N
 */
+/**
+Intuition:
+Consider trust as a graph, all pairs are directed edge.
+The point with in-degree - out-degree = N - 1 become the judge.
 
+Explanation:
+Count the degree, and check at the end.
+
+ */
 class Solution {
     public int findJudge(int n, int[][] trust) {
         int[] arr = new int[n + 1];
